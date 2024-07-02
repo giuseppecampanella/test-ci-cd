@@ -1,0 +1,40 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        docker build -t $_AR_HOSTNAME/$PROJECT_ID/demo-giuseppe/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA .
+    id: Build
+  - name: "gcr.io/cloud-builders/docker"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        docker run $_AR_HOSTNAME/$PROJECT_ID/demo-giuseppe/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA npm run test
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "$_AR_HOSTNAME/$PROJECT_ID/demo-giuseppe/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA",
+      ]
+    id: Push
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    args:
+      - deploy
+      - releases
+      - create
+      - "rel-${SHORT_SHA}"
+      - "--delivery-pipeline=test-ci-cd-pipeline"
+      - >-
+        --region=$_DEPLOY_REGION
+      - >-
+        --images=app=$_AR_HOSTNAME/$PROJECT_ID/demo-giuseppe/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+    entrypoint: gcloud
+images:
+  - >-
+    $_AR_HOSTNAME/$PROJECT_ID/demo-giuseppe/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA
+tags:
+  - gcp-cloud-build-deploy-cloud-run
+  - gcp-cloud-build-deploy-cloud-run-managed
+  - cloud-deploy-test-ci-cd
