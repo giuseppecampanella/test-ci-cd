@@ -1,0 +1,86 @@
+# Node.js standard
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Logs
+logs/
+*.log
+*.log.*
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Directory di build
+dist/
+build/
+coverage/
+
+# Cartelle di configurazione dell'IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Ambiente di sviluppo locale
+.env
+.env.local
+.env.*.local
+.envrc
+
+# Files temporanei
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.orig
+
+# Sistemi operativi
+.DS_Store
+Thumbs.db
+
+# Processi di debug
+debug/
+
+# Cartelle di lavoro temporanee
+tmp/
+temp/
+.cache/
+
+# Test coverage e report
+coverage/
+nyc_output/
+node_modules/**/node_modules/
+
+# Cartelle per test end-to-end
+cypress/screenshots/
+cypress/videos/
+
+# Build files
+build/
+
+# Altri file che potresti voler ignorare:
+*.log
+*.csv
+*.dat
+*.out
+*.db
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variable files
+.env
+.env.test
+.env.production
+.env.staging
+
+# Altri file temporanei di backup
+*.bak
+*.backup
